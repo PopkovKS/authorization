@@ -2,53 +2,24 @@ import {
     Body,
     ConflictException,
     Controller,
-    Get,
-    HttpException,
-    HttpStatus,
     Post,
-    UnauthorizedException, UseGuards, Request
 } from '@nestjs/common';
-import { LocalAuthGuard } from './auth/local-auth.guard';
-import { AppService } from './app.service';
-import { PrismaService } from "./services/prisma.services";
 import { hash } from 'bcrypt';
-import { Prisma } from "@prisma/client";
-import { AuthService } from "./auth/auth.service";
-import { JwtAuthGuard } from "./auth/jwt-auth.guard";
+import { PrismaService } from "nestjs-prisma";
+import {Prisma} from "@prisma/client";
+
 
 @Controller()
 export class AppController {
-    constructor(
-        private readonly appService: AppService,
-        private readonly prismaService: PrismaService,
-        private readonly authService: AuthService) {
+    constructor(private readonly prisma: PrismaService) {
     }
-
-
-    @Get()
-    getHello(): string {
-        return this.appService.getHello();
-    }
-
-    @UseGuards(LocalAuthGuard)
-    @Post('auth/login')
-    async login(@Request() req) {
-        return this.authService.login(req.user);
-    }
-
-    @UseGuards(JwtAuthGuard)
-    @Get('profile')
-    getProfile(@Request() req) {
-        return req.user;
-    }
-
 
     @Post('/registration')
     async registration(@Body() body) {
         try {
             const hashedPassword = await hash(body.password, 10)
 
-            const result = await this.prismaService.users.create({
+            const result = await this.prisma.users.create({
                 data: {
                     ...body,
                     password: hashedPassword

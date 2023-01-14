@@ -1,18 +1,18 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from "../services/prisma.services";
 import { JwtService } from "@nestjs/jwt";
 import { compare } from 'bcrypt';
+import { PrismaService } from "nestjs-prisma";
 
 
 @Injectable()
 export class AuthService {
     constructor(
-        private prismaService: PrismaService,
+        private readonly prisma: PrismaService,
         private jwtService: JwtService
 ) {}
 
     async validateUser(email: string, pass: string): Promise<any> {
-        const user = await this.prismaService.users.findUnique({
+        const user = await this.prisma.users.findUnique({
             where: {
                 email
             }
