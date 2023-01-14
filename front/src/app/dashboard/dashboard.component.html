@@ -1,0 +1,10 @@
+<div *ngIf="user">
+  User id : {{user.userId}} <br>
+  User email: {{user.email}}
+</div>
+<button (click)="logout()">
+  Exit
+</button>
+<pre>
+  {{user | json}}
+</pre>
