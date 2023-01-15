@@ -1,0 +1,52 @@
+<button nz-button
+        [nzType]="'primary'"
+        (click)="showModal()">
+  <span>Create car</span>
+</button>
+
+<nz-table #basicTable [nzData]="cars">
+  <thead>
+  <tr>
+    <th>id</th>
+    <th>brand</th>
+    <th>model</th>
+    <th>color</th>
+    <th>mileage</th>
+    <th>actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let car of basicTable.data">
+    <td>{{ car.id }}</td>
+    <td>{{ car.brand }}</td>
+    <td>{{ car.model }}</td>
+    <td>{{ car.color }}</td>
+    <td>{{ car.mileage }}</td>
+    <td>
+      <a>Edit</a>
+      <nz-divider nzType="vertical"></nz-divider>
+      <a>Delete</a>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
+
+
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Create car"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+>
+  <ng-container *nzModalContent>
+    <form [formGroup]="carForm">
+      <select formControlName="brand">
+        <option>select bran</option>
+      <option *ngFor="let brand of brands" [value]="brand">{{brand}}</option>
+      </select>
+      <input type="text" formControlName="model" placeholder="model">
+      <input type="text" formControlName="color" placeholder="color">
+      <input type="number" formControlName="mileage" placeholder="mileage">
+    </form>
+  </ng-container>
+</nz-modal>

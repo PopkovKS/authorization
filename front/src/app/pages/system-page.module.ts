@@ -7,6 +7,8 @@ import { DashboardModule } from "./dashboard/dashboard.module";
 import { NzLayoutModule } from "ng-zorro-antd/layout";
 import { NzMenuModule } from "ng-zorro-antd/menu";
 import { IconsProviderModule } from "../icons-provider.module";
+import { CarsModule } from "./cars/cars.module";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 
 @NgModule({
@@ -19,7 +21,8 @@ import { IconsProviderModule } from "../icons-provider.module";
     DashboardModule,
     NzLayoutModule,
     NzMenuModule,
-    IconsProviderModule
+    IconsProviderModule,
+    CarsModule,
   ]
 })
 export class SystemPageModule { }

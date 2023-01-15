@@ -7,7 +7,8 @@ const routes: Routes = [
   {
     path: '', component: SystemComponent, canActivate: [AuthGuard], children: [
       {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
-      { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) }
+      { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
+      { path: 'cars', loadChildren: () => import('./cars/cars.module').then(m => m.CarsModule) }
     ]
   }
 ];

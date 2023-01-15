@@ -4,6 +4,8 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from "./users/users.module";
 import {PrismaModule} from 'nestjs-prisma';
 import { loggingMiddleware } from "./common/middleware/logging.middleware";
+import { CarsController } from './cars/cars.controller';
+import { CarsService } from './cars/cars.service';
 
 
 
@@ -14,7 +16,7 @@ import { loggingMiddleware } from "./common/middleware/logging.middleware";
       middlewares: [loggingMiddleware()], // configure your prisma middleware
     },
   }),],
-  controllers: [AppController],
-  providers: [],
+  controllers: [AppController, CarsController],
+  providers: [CarsService],
 })
 export class AppModule {}
