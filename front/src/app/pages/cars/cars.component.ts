@@ -31,6 +31,11 @@ export class CarsComponent implements OnInit {
       this.cars = data
     })
   }
+  delCar(id: number) {
+    this.httpService.delete(`cars/delete/${id}`).subscribe((data) => {
+      this.getCars()
+    })
+  }
 
   showModal(): void {
     this.isVisible = true;

@@ -14,4 +14,11 @@ export class CarsService {
             data: car
         })
     }
+    delCar(id) {
+        return this.prisma.cars.delete({
+            where: {
+                id
+            }
+        })
+    }
 }

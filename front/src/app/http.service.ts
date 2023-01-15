@@ -35,6 +35,12 @@ export class HttpService {
         catchError(this.handleError)
       );
   }
+  delete(path: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${path}`, this.httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
 
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
