@@ -52,7 +52,7 @@ export class CarsComponent implements OnInit {
       console.log(data)
       this.isVisible = true;
       return data
-      // this.updateCar(id)
+      this.updateCar(id)
 
 
     })
