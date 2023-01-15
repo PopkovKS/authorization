@@ -8,6 +8,8 @@ import { NzModalModule } from "ng-zorro-antd/modal";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NzDividerModule } from "ng-zorro-antd/divider";
 import { NzTableModule } from "ng-zorro-antd/table";
+import { NzSelectModule } from "ng-zorro-antd/select";
+import { NzInputModule } from "ng-zorro-antd/input";
 
 
 @NgModule({
@@ -22,7 +24,9 @@ import { NzTableModule } from "ng-zorro-antd/table";
     FormsModule,
     ReactiveFormsModule,
     NzDividerModule,
-    NzTableModule
+    NzTableModule,
+    NzSelectModule,
+    NzInputModule
   ]
 })
 export class CarsModule { }

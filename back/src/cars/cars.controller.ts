@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from "../auth/jwt-auth.guard";
 import { CarsService } from "./cars.service";
 
@@ -6,6 +6,7 @@ import { CarsService } from "./cars.service";
 export class CarsController {
     constructor(private carsService: CarsService) {
     }
+
     @UseGuards(JwtAuthGuard)
     @Get('')
     getCars() {
@@ -17,9 +18,19 @@ export class CarsController {
     createCar(@Body() body) {
         return this.carsService.createCar(body)
     }
+
     @UseGuards(JwtAuthGuard)
     @Delete('delete/:id')
     delCar(@Param('id') id) {
         return this.carsService.delCar(+id)
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Put('update/:id')
+    updateCar(
+        @Param('id') id,
+        @Body() body
+    ) {
+        return this.carsService.updateCar(body, +id)
     }
 }

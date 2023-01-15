@@ -23,7 +23,7 @@
     <td>{{ car.color }}</td>
     <td>{{ car.mileage }}</td>
     <td>
-      <a>Edit</a>
+      <a (click)="showModalUpdate(car.id)">Edit</a>
       <nz-divider nzType="vertical"></nz-divider>
       <a (click)="delCar(car.id)">Delete</a>
     </td>
@@ -35,6 +35,7 @@
 <nz-modal
   [(nzVisible)]="isVisible"
   nzTitle="Create car"
+  nzOkText="Okewe"
   (nzOnCancel)="handleCancel()"
   (nzOnOk)="handleOk()"
 >
@@ -42,11 +43,28 @@
     <form [formGroup]="carForm">
       <select formControlName="brand">
         <option>select bran</option>
-      <option *ngFor="let brand of brands" [value]="brand">{{brand}}</option>
+        <option *ngFor="let brand of brands" [value]="brand">{{brand}}</option>
       </select>
-      <input type="text" formControlName="model" placeholder="model">
-      <input type="text" formControlName="color" placeholder="color">
-      <input type="number" formControlName="mileage" placeholder="mileage">
+      <!--      <nz-select formControlName="brand">-->
+      <!--        <nz-option nzValue="select bran" nzLabel="Lucy"></nz-option>-->
+      <!--        <nz-option  *ngFor="let brand of brands" [nzValue]="brand">{{brand}}></nz-option>-->
+      <!--      </nz-select>-->
+      <div class="example-input">
+        <input nz-input type="text"
+               formControlName="model"
+               placeholder="model"
+               nzSize="default">
+
+        <input nz-input type="text"
+               formControlName="color"
+               placeholder="color"
+               nzSize="default">
+
+        <input nz-input type="number"
+               formControlName="mileage"
+               placeholder="mileage"
+               nzSize="default">
+      </div>
     </form>
   </ng-container>
 </nz-modal>

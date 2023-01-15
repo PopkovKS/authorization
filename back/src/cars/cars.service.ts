@@ -5,6 +5,7 @@ import { PrismaService } from "nestjs-prisma";
 export class CarsService {
     constructor(private readonly prisma: PrismaService) {
     }
+
     getCars() {
         return this.prisma.cars.findMany()
     }
@@ -14,11 +15,22 @@ export class CarsService {
             data: car
         })
     }
+
     delCar(id) {
         return this.prisma.cars.delete({
             where: {
                 id
             }
         })
+    }
+
+    updateCar(car, id) {
+        return this.prisma.cars.update({
+            where: {
+                id
+            },
+            data : car
+        })
+
     }
 }

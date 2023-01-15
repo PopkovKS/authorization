@@ -41,6 +41,13 @@ export class HttpService {
         catchError(this.handleError)
       );
   }
+  update(path: string): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${path}`, this.httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
 
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {

@@ -9,7 +9,7 @@ import { HttpService } from "../../http.service";
 })
 export class CarsComponent implements OnInit {
   isVisible = false;
-  cars:any = [];
+  cars: any = [];
   brands = [
     'subaru','bmw','opel'
   ]
@@ -36,9 +36,26 @@ export class CarsComponent implements OnInit {
       this.getCars()
     })
   }
+  updateCar(id: number) {
+    this.httpService.update(`cars/update/${id}`).subscribe((data) => {
+      this.getCars()
+    })
+  }
+
 
   showModal(): void {
     this.isVisible = true;
+  }
+
+  showModalUpdate(id: number) {
+    this.httpService.get('cars').subscribe((data) => {
+      console.log(data)
+      this.isVisible = true;
+      return data
+      // this.updateCar(id)
+
+
+    })
   }
 
   handleOk(): void {
