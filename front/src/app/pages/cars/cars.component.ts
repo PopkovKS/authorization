@@ -17,7 +17,7 @@ export class CarsComponent implements OnInit {
     brand: new FormControl('', Validators.required),
     model: new FormControl('', Validators.required),
     color: new FormControl('', Validators.required),
-    mileage: new FormControl(0, Validators.required)
+    mileage: new FormControl('mileage', Validators.required)
   })
 
   constructor(private httpService: HttpService) {
@@ -50,9 +50,10 @@ export class CarsComponent implements OnInit {
   showModalUpdate(id: number) {
     this.httpService.get('cars').subscribe((data) => {
       console.log(data)
+      console.log(id)
       this.isVisible = true;
       return data
-      this.updateCar(id)
+      // this.updateCar(car)
 
 
     })

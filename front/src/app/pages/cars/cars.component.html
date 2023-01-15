@@ -33,6 +33,7 @@
 
 
 <nz-modal
+  nzWidth = "250px"
   [(nzVisible)]="isVisible"
   nzTitle="Create car"
   nzOkText="Okewe"
@@ -41,8 +42,8 @@
 >
   <ng-container *nzModalContent>
     <form [formGroup]="carForm">
-      <select formControlName="brand">
-        <option>select bran</option>
+      <select class="select" formControlName="brand">
+        <option value="" disabled selected hidden>Select brand</option>
         <option *ngFor="let brand of brands" [value]="brand">{{brand}}</option>
       </select>
       <!--      <nz-select formControlName="brand">-->
