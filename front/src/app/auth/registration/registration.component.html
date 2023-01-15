@@ -1,21 +1,33 @@
-<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
-  <div>
-  <label for="email">Email </label>
-  <input id="email" type="text" formControlName="email">
+<div class="auth-form-container">
+  <div class="auth-form">
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">Email</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
+          <input nz-input formControlName="email" id="email"/>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="34" nzFor="password" nzRequired>Password</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input your password!">
+          <input
+            nz-input
+            type="password"
+            id="password"
+            formControlName="password"
+          />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item nz-row class="register-area">
+        <nz-form-control [nzSpan]="14" [nzOffset]="6">
+          <button type="submit" nz-button nzType="primary" [disabled]="!registrationForm.valid">Register</button>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-control [nzSpan]="14" [nzOffset]="6">
+        <a [routerLink]="['/login']">
+          go login!
+        </a>
+      </nz-form-control>
+    </form>
   </div>
-  <div>
-  <label for="password">Password </label>
-  <input id="password" type="password" formControlName="password">
-  </div>
-  <button
-    type="submit"
-    [disabled]="!registrationForm.valid"
-  >Sign up
-  </button>
-  <div>
-  <button
-    [routerLink]="['/login']"
-  >login
-  </button>
-  </div>
-</form>
+</div>

@@ -1,21 +1,25 @@
-<form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-<div>
-  <label for="email">Email </label>
-  <input id="email" type="text" formControlName="email">
+<div class="auth-form-container">
+  <div class="auth-form">
+    <form nz-form [formGroup]="loginForm" class="login-form" (ngSubmit)="onLogin()">
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please input your email!">
+          <nz-input-group nzPrefixIcon="user">
+            <input  type="text" nz-input formControlName="email" placeholder="email"/>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please input your Password!">
+          <nz-input-group nzPrefixIcon="lock">
+            <input type="password" nz-input formControlName="password" placeholder="Password"/>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <button nz-button type="submit" class="login-form-button login-form-margin" [nzType]="'primary'"
+              [disabled]="!loginForm.valid">Log in
+      </button>
+      Or
+      <a [routerLink]="['/registration']">register now!</a>
+    </form>
+  </div>
 </div>
-  <div>
-  <label for="password">Password </label>
-  <input id="password" type="password" formControlName="password">
-  </div>
-  <div>
-  <button
-    type="submit"
-    [disabled]="!loginForm.valid"
-  >Sign in
-  </button>
-  </div>
-  <button
-     [routerLink]="['/registration']"
-  >registration
-  </button>
-</form>

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from "../auth/auth.service";
-import { HttpService } from "../http.service";
+import { HttpService } from "../../http.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -11,7 +10,6 @@ export class DashboardComponent implements OnInit {
   user: any;
   constructor(
     private httpService: HttpService,
-    private authService: AuthService
   ) {
   }
 
@@ -20,9 +18,4 @@ export class DashboardComponent implements OnInit {
       this.user = data
     })
   }
-
-  logout() {
-    this.authService.logout()
-  }
-
 }
