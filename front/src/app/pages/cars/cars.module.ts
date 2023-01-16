@@ -10,23 +10,25 @@ import { NzDividerModule } from "ng-zorro-antd/divider";
 import { NzTableModule } from "ng-zorro-antd/table";
 import { NzSelectModule } from "ng-zorro-antd/select";
 import { NzInputModule } from "ng-zorro-antd/input";
+import { NzPopconfirmModule } from "ng-zorro-antd/popconfirm";
 
 
 @NgModule({
   declarations: [
     CarsComponent
   ],
-  imports: [
-    CommonModule,
-    CarsRoutingModule,
-    NzButtonModule,
-    NzModalModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NzDividerModule,
-    NzTableModule,
-    NzSelectModule,
-    NzInputModule
-  ]
+    imports: [
+        CommonModule,
+        CarsRoutingModule,
+        NzButtonModule,
+        NzModalModule,
+        FormsModule,
+        ReactiveFormsModule,
+        NzDividerModule,
+        NzTableModule,
+        NzSelectModule,
+        NzInputModule,
+        NzPopconfirmModule
+    ]
 })
 export class CarsModule { }

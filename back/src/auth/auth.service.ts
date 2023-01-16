@@ -18,13 +18,16 @@ export class AuthService {
             }
         });
 
-        const match = await compare(pass, user.password);
+        if (user) {
+            const match = await compare(pass, user.password);
 
-        if (user && match) {
-            const { password, ...result } = user;
-            return result;
+            if (match) {
+                const { password, ...result } = user;
+                return result;
+            }
+            return null;
         }
-        return null;
+        return null
     }
 
      login(user: any) {

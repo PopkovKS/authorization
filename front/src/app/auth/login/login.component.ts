@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { AuthService } from "../auth.service";
+import { HttpService } from "../../http.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -8,17 +9,24 @@ import { AuthService } from "../auth.service";
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+  isSpinning = false
   constructor(
-    private authService: AuthService
+    private httpService: HttpService,
+    private router: Router
   ) { }
   loginForm = new FormGroup({
-    email: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required),
+    email: new FormControl('1', Validators.required),
+    password: new FormControl('1', Validators.required),
   });
 
   onLogin() {
-
-    this.authService.login(this.loginForm.value.email ,this.loginForm.value.password)
-
+    this.isSpinning = true
+    this.httpService.post({
+      path: 'auth/login', data: this.loginForm.value
+    }).subscribe((resp: any) => {
+      localStorage.setItem('access_token', resp.access_token);
+      this.isSpinning = false;
+      this.router.navigate(['dashboard']);
+    })
   }
 }

@@ -23,22 +23,29 @@
     <td>{{ car.color }}</td>
     <td>{{ car.mileage }}</td>
     <td>
-      <a (click)="showModalUpdate(car.id)">Edit</a>
+      <a (click)="showModalUpdate(car)">Edit</a>
       <nz-divider nzType="vertical"></nz-divider>
-      <a (click)="delCar(car.id)">Delete</a>
+      <a
+        nz-popconfirm
+        nzPopconfirmTitle="Are you sure?"
+        nzOkText="ok"
+        nzCancelText="cancel"
+        (nzOnConfirm)="delCar(car.id)"
+      >
+        Delete
+      </a>
     </td>
   </tr>
   </tbody>
 </nz-table>
 
-
 <nz-modal
-  nzWidth = "250px"
+  nzWidth="250px"
   [(nzVisible)]="isVisible"
-  nzTitle="Create car"
-  nzOkText="Okewe"
+  [nzTitle]="isUpdate ? 'Update car' : 'Create car'"
+  [nzOkText]="isUpdate ? 'Update' : 'Create'"
   (nzOnCancel)="handleCancel()"
-  (nzOnOk)="handleOk()"
+  (nzOnOk)="isUpdate ? handleUpdate() : handleCreate()"
 >
   <ng-container *nzModalContent>
     <form [formGroup]="carForm">

@@ -1,18 +1,22 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
-import {catchError, Observable, throwError} from "rxjs";
+import { catchError, Observable, of, throwError } from "rxjs";
+import { NzNotificationService } from "ng-zorro-antd/notification";
 
 interface IPostOptions{
   path: string;
   data: any;
+
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpService {
+  qwe:any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+  private notification: NzNotificationService) { }
 
   apiUrl = 'http://localhost:3000'
 
@@ -25,41 +29,50 @@ export class HttpService {
   get(path: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/${path}`)
       .pipe(
-        catchError(this.handleError)
+        catchError(this.handleError())
       );
   }
 
   post(options: IPostOptions): Observable<any> {
     return this.http.post(`${this.apiUrl}/${options.path}`, options.data, this.httpOptions)
       .pipe(
-        catchError(this.handleError)
+        catchError(this.handleError())
       );
   }
   delete(path: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${path}`, this.httpOptions)
       .pipe(
-        catchError(this.handleError)
+        catchError(this.handleError())
       );
   }
-  update(path: string): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${path}`, this.httpOptions)
+  put(options: IPostOptions): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${options.path}`, options.data, this.httpOptions)
       .pipe(
-        catchError(this.handleError)
+        catchError(this.handleError())
       );
   }
 
 
-  private handleError(error: HttpErrorResponse) {
-    if (error.status === 0) {
-      // A client-side or network error occurred. Handle it accordingly.
-      console.error('An error occurred:', error.error);
-    } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong.
-      console.error(
-        `Backend returned code ${error.status}, body was: `, error.error);
-    }
-    // Return an observable with a user-facing error message.
-    return throwError(() => new Error('Something bad happened; please try again later.'));
+
+  private handleError<TResult>(): (error: any) => Observable<TResult> {
+      return (error) => {
+            this.notification.error('Ops:(', `Ошибка: ${error.status}`)
+      return of();
+    };
   }
+
+  //   if (error.status === 0) {
+  //     // A client-side or network error occurred. Handle it accordingly.
+  //     console.error('An error occurred:', error.error);
+  //   } else {
+  //     console.log(this.qwe)
+  //     // The backend returned an unsuccessful response code.
+  //     // The response body may contain clues as to what went wrong.
+  //     this.notification.error('Ops:(', `Backend returned code ${error.status}, body was:', ${error.error}`)
+  //     // console.error(
+  //     //   `Backend returned code ${error.status}, body was: `, error.error);
+  //   }
+  //   // Return an observable with a user-facing error message.
+  //   return throwError(() => new Error('Something bad happened; please try again later.'));
+  // }
 }

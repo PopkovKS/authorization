@@ -15,11 +15,14 @@
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>
-      <button nz-button type="submit" class="login-form-button login-form-margin" [nzType]="'primary'"
-              [disabled]="!loginForm.valid">Log in
+      <button [routerLink]="['/dashboard']" nz-button type="submit" class="login-form-button login-form-margin" [nzType]="'primary'"
+              [disabled]="!loginForm.valid || isSpinning " > <span *ngIf="!isSpinning; else loader"> Log in</span>
       </button>
       Or
       <a [routerLink]="['/registration']">register now!</a>
+      <ng-template class="loader" #loader>
+        <nz-spin  nzSimple></nz-spin>
+      </ng-template>
     </form>
   </div>
 </div>
