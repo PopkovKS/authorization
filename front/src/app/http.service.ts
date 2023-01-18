@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import { catchError, Observable, of, throwError } from "rxjs";
 import { NzNotificationService } from "ng-zorro-antd/notification";
+import { environment } from '../environments/environment';
 
 interface IPostOptions{
   path: string;
   data: any;
 
 }
+const baseUrl = environment.BASE_URL_API
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +20,7 @@ export class HttpService {
   constructor(private http: HttpClient,
   private notification: NzNotificationService) { }
 
-  apiUrl = 'http://popkovks.ru/api'
+  apiUrl = baseUrl
   // apiUrl = 'http://localhost:3000/api'
 
   httpOptions = {
