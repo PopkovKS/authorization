@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient } from "@angular/common/http";
+import { HttpService } from "../../http.service";
 
 @Component({
   selector: 'app-registration',
@@ -9,14 +10,16 @@ import { HttpClient } from "@angular/common/http";
 })
 
 export class RegistrationComponent {
-  constructor(private http: HttpClient) { }
+  constructor(private httpService: HttpService) { }
   registrationForm = new FormGroup({
     email: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
   });
 
   onSubmit() {
-    this.http.post<any>('http://localhost:3000/registration', this.registrationForm.value).subscribe(data => {
+    this.httpService.post({
+      path: 'registration', data: this.registrationForm.value
+    }).subscribe(data => {
       console.log(data)
     })
   }
