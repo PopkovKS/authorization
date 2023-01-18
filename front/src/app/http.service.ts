@@ -18,7 +18,7 @@ export class HttpService {
   constructor(private http: HttpClient,
   private notification: NzNotificationService) { }
 
-  apiUrl = 'http://localhost:3000'
+  apiUrl = 'http://localhost:3000/api'
 
   httpOptions = {
     headers: new HttpHeaders({
