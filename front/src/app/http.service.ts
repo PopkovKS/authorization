@@ -9,7 +9,7 @@ interface IPostOptions{
   data: any;
 
 }
-const baseUrl = environment.BASE_URL_API
+// const baseUrl = environment.BASE_URL_API
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +20,8 @@ export class HttpService {
   constructor(private http: HttpClient,
   private notification: NzNotificationService) { }
 
-  apiUrl = baseUrl
-  // apiUrl = 'http://localhost:3000/api'
+  // apiUrl = baseUrl
+  apiUrl = 'http://localhost:3000/api'
 
   httpOptions = {
     headers: new HttpHeaders({
