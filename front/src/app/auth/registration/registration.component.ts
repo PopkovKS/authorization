@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpService } from "../../http.service";
+import { NzNotificationService } from "ng-zorro-antd/notification";
 
 @Component({
   selector: 'app-registration',
@@ -9,7 +10,9 @@ import { HttpService } from "../../http.service";
 })
 
 export class RegistrationComponent {
-  constructor(private httpService: HttpService) { }
+  constructor(
+    private notification: NzNotificationService,
+    private httpService: HttpService) { }
   registrationForm = new FormGroup({
     email: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
@@ -21,6 +24,7 @@ export class RegistrationComponent {
     }).subscribe(data => {
       console.log(data)
     })
+    this.notification.success(`${this.registrationForm.value.email} successfully registered`,'')
   }
 }
 
