@@ -14,7 +14,7 @@ export class CarsComponent implements OnInit {
   cars: any = [];
   editCarId: number = 0;
   brands = [
-    'subaru', 'bmw', 'opel'
+    'subaru', 'bmw', 'opel', 'honda'
   ]
   carForm = new FormGroup({
     brand: new FormControl('', Validators.required),

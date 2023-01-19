@@ -24,7 +24,7 @@ export class RegistrationComponent {
     }).subscribe(data => {
       console.log(data)
     })
-    this.notification.success(`Wow, ${this.registrationForm.value.email} == 🦾, (successfully registered)`,'')
+    this.notification.success(`Wow, ${this.registrationForm.value.email} == 🦾 successfully registered`,'')
   }
 }
 

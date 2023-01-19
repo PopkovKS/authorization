@@ -28,6 +28,5 @@ export class LoginComponent {
       this.isSpinning = false;
       this.router.navigate(['dashboard']);
     })
-    this.isSpinning = false;
   }
 }
