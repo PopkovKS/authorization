@@ -22,7 +22,7 @@ export class HttpService {
 
   // apiUrl = baseUrl
   // apiUrl = 'http://localhost:3000/api'
-  apiUrl = 'http://popkovks.ru/api'
+  apiUrl = 'http://popkovks.ru/'
 
   httpOptions = {
     headers: new HttpHeaders({

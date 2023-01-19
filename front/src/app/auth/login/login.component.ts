@@ -15,8 +15,8 @@ export class LoginComponent {
     private router: Router
   ) { }
   loginForm = new FormGroup({
-    email: new FormControl('1', Validators.required),
-    password: new FormControl('1', Validators.required),
+    email: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required),
   });
 
   onLogin() {
