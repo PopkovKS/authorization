@@ -21,8 +21,8 @@ export class HttpService {
   private notification: NzNotificationService) { }
 
   // apiUrl = baseUrl
-  // apiUrl = 'http://localhost:3000/api'
-  apiUrl = 'http://popkovks.ru/api'
+  apiUrl = 'http://localhost:3000/api'
+  // apiUrl = 'http://popkovks.ru/api'
 
   httpOptions = {
     headers: new HttpHeaders({

@@ -10,9 +10,12 @@ export class CarsService {
         return this.prisma.cars.findMany()
     }
 
-    createCar(car) {
+    createCar(car, user) {
         return this.prisma.cars.create({
-            data: car
+            data: {
+                ...car,
+                user: user
+            },
         })
     }
 
