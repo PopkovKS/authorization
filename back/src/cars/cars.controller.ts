@@ -9,8 +9,8 @@ export class CarsController {
 
     @UseGuards(JwtAuthGuard)
     @Get('')
-    getCars() {
-        return this.carsService.getCars()
+    getCars(@Request() req) {
+        return this.carsService.getCars(req.user.id)
     }
 
     @UseGuards(JwtAuthGuard)

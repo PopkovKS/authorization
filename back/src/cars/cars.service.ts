@@ -6,15 +6,19 @@ export class CarsService {
     constructor(private readonly prisma: PrismaService) {
     }
 
-    getCars() {
-        return this.prisma.cars.findMany()
+    getCars(userId) {
+        return this.prisma.cars.findMany({
+            where: {
+                userId: userId
+            }
+        })
     }
 
     createCar(car, user) {
         return this.prisma.cars.create({
             data: {
                 ...car,
-                user: user
+                userId: user.id
             },
         })
     }

@@ -1,0 +1,27 @@
+<p>eggs-timer works!</p>
+<!--<input [(ngModel)]="value">-->
+<!--<p>value:{{value}}</p>-->
+
+
+
+
+<p>value:{{minutes}}</p>
+
+<div id="container">
+  <select [(ngModel)]="minutes">
+    <option *ngFor="let type of types" [value]="type.time">{{type.name}}</option>
+  </select>
+  <div id="timer">
+    <div id="time">
+      <span id="minutes">{{toDoubleDigit(minutes)}}</span>
+      <span id="colon">:</span>
+      <span id="seconds">{{toDoubleDigit(seconds)}}</span>
+    </div>
+    <div id="filler" [ngStyle]="{height : fillerHeight + 'px'}"></div>
+  </div>
+
+  <div id="buttons">
+    <button  (click)="startShortBreak()">Варка</button>
+    <button  (click)="stopTimer()">stop</button>
+  </div>
+</div>
