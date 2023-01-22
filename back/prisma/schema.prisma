@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = "mysql://root:1234@localhost:3306/app-db"
+  provider = "mysql+ssh"
+  url      = "mysql://root:1234@178.20.45.192:3306/app-db"
 }
 
 model Users {
