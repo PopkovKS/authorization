@@ -9,6 +9,7 @@ import { NzMenuModule } from "ng-zorro-antd/menu";
 import { IconsProviderModule } from "../icons-provider.module";
 import { CarsModule } from "./cars/cars.module";
 import { EggsTimerModule } from "./eggs-timer/eggs-timer.module";
+import { ItemsModule } from "./items/items.module";
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { EggsTimerModule } from "./eggs-timer/eggs-timer.module";
     NzMenuModule,
     IconsProviderModule,
     CarsModule,
-    EggsTimerModule
+    EggsTimerModule,
+    ItemsModule
   ]
 })
 export class SystemPageModule { }

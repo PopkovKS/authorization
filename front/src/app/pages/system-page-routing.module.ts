@@ -9,7 +9,8 @@ const routes: Routes = [
       {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
       { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
       { path: 'cars', loadChildren: () => import('./cars/cars.module').then(m => m.CarsModule) },
-      { path: 'eggs-timer', loadChildren: () => import('./eggs-timer/eggs-timer.module').then(m => m.EggsTimerModule) }
+      { path: 'eggs-timer', loadChildren: () => import('./eggs-timer/eggs-timer.module').then(m => m.EggsTimerModule) },
+      { path: 'items', loadChildren: () => import('./items/items.module').then(m => m.ItemsModule) }
     ]
   }
 ];
