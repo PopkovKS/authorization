@@ -5,6 +5,7 @@ import { ItemsRoutingModule } from './items-routing.module';
 import { ItemsComponent } from './items.component';
 import { NzGridModule } from "ng-zorro-antd/grid";
 import { ItemComponent } from './item/item.component';
+import { NzMenuModule } from "ng-zorro-antd/menu";
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { ItemComponent } from './item/item.component';
   imports: [
     CommonModule,
     ItemsRoutingModule,
-    NzGridModule
+    NzGridModule,
+    NzMenuModule
   ]
 })
 export class ItemsModule { }
