@@ -6,9 +6,11 @@
 
 
 <p>value:{{minutes}}</p>
+<p>fillerHeight:{{fillerHeight}}</p>
 
 <div id="container">
   <select [(ngModel)]="minutes">
+    <option value="0" disabled selected hidden>Select brand</option>
     <option *ngFor="let type of types" [value]="type.time">{{type.name}}</option>
   </select>
   <div id="timer">

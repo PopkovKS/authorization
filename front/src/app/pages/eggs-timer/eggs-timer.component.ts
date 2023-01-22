@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { log } from "ng-zorro-antd/core/logger";
 
 @Component({
   selector: 'app-eggs-timer',
