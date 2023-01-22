@@ -1,0 +1,22 @@
+<p>items works!</p>
+
+
+
+
+
+
+
+
+
+
+<div nz-row [nzGutter]="16">
+  <div style="background: #ece7a6" nz-col class="gutter-row" [nzSpan]="selectedItem? 12 : 24">
+    <p *ngFor="let item of items" (click)="clickItem(item)">{{item.name}}</p>
+  </div>
+  <div *ngIf="selectedItem" style="background: #99b9d2" nz-col class="gutter-row" [nzSpan]="12">
+    <app-item
+    [item]="selectedItem"
+    (onClose)="clickClose($event)"
+    ></app-item>
+  </div>
+</div>
