@@ -10,6 +10,7 @@ import { IconsProviderModule } from "../icons-provider.module";
 import { CarsModule } from "./cars/cars.module";
 import { EggsTimerModule } from "./eggs-timer/eggs-timer.module";
 import { ItemsModule } from "./items/items.module";
+import { CalculatorModule } from "./calculator/calculator.module";
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { ItemsModule } from "./items/items.module";
     IconsProviderModule,
     CarsModule,
     EggsTimerModule,
-    ItemsModule
+    ItemsModule,
+    CalculatorModule
   ]
 })
 export class SystemPageModule { }

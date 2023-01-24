@@ -10,7 +10,7 @@ export class ItemComponent {
 
   @Input() item: any
   @Output() onClose = new EventEmitter<any>()
-  Close() {
+  close() {
     this.onClose.emit()
   }
 }

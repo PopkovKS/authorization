@@ -10,7 +10,8 @@ const routes: Routes = [
       { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
       { path: 'cars', loadChildren: () => import('./cars/cars.module').then(m => m.CarsModule) },
       { path: 'eggs-timer', loadChildren: () => import('./eggs-timer/eggs-timer.module').then(m => m.EggsTimerModule) },
-      { path: 'items', loadChildren: () => import('./items/items.module').then(m => m.ItemsModule) }
+      { path: 'items', loadChildren: () => import('./items/items.module').then(m => m.ItemsModule) },
+      { path: 'calc', loadChildren: () => import('./calculator/calculator.module').then(m => m.CalculatorModule) }
     ]
   }
 ];
