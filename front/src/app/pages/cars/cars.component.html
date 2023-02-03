@@ -48,9 +48,11 @@
     </td>
   </tr>
   </tbody>
-    <button (click)="backStepList()" [disabled]="this.skip == 0" ><< Назад </button>
-    {{currentPage}}
-    <button (click)="nextStepList()" [disabled]="this.skip == 10"> Вперед >></button>
+  <button (click)="backStepStart()" [disabled]="currentPage == 1">[<<] </button>
+  <button (click)="backStepPage()" [disabled]="currentPage == 1">[<] </button>
+  <button *ngFor="let page of pages" (click)="changePage(page)" [class.disable-page]="currentPage == page" [disabled]="currentPage == page">{{page}}</button>
+  <button (click)="nextStepPage()" [disabled]="currentPage == this.countPage"> [>]</button>
+  <button (click)="nextStepEnd()" [disabled]="currentPage == this.countPage"> [>>]</button>
 </nz-table>
 
 

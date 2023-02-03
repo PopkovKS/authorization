@@ -11,3 +11,9 @@ nz-select {
   width: 200px;
   height: 32px;
 }
+
+button {
+  &.disable-page {
+    font-weight: bold;
+  }
+}

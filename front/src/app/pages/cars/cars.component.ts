@@ -19,11 +19,13 @@ interface ICar {
 })
 export class CarsComponent implements OnInit {
   skip: any = 0;
-  take: any = 2;
+  take: any = 10;
 
-  page: any;
+  countPage: any;
   // currentList:any = this.list /this.take ;
-  currentPage:any = 1;
+  currentPage: number = 1;
+  pages:any;
+  total:number = 0;
 
   selectedCars = [];
   isCheckedAll = false;
@@ -49,8 +51,12 @@ export class CarsComponent implements OnInit {
   }
 
   public delCar(id: number) {
+
     this.httpService.delete(`cars/delete/${id}`).subscribe((data) => {
       this.notification.success('Car successfully delete', '')
+      if(this.take * this.countPage > this.total) {
+        this.skip = this.skip - this.take
+      }
       this.getCars()
     })
   }
@@ -135,16 +141,48 @@ export class CarsComponent implements OnInit {
     this.isVisible = false;
   }
 
-  public backStepList() {
+  public backStepPage() {
     this.currentPage -= 1
     this.skip = this.skip - this.take
     this.getCars()
   }
 
-  public nextStepList() {
+  public nextStepPage() {
     this.currentPage += 1
     this.skip = this.skip + this.take
     this.getCars()
+  }
+
+  public changePage(page:number) {
+    this.currentPage = page
+    this.skip = this.currentPage*this.take - this.take
+    this.getCars()
+  }
+
+  public nextStepEnd(){
+    this.currentPage = this.countPage
+    this.skip = this.countPage*this.take - this.take
+    this.getCars()
+  }
+
+  public backStepStart(){
+    this.currentPage = 1
+    this.skip = 0
+    this.getCars()
+  }
+
+
+  private getCars() {
+    this.httpService.get(`cars?skip=${this.skip}&take=${this.take}`)
+      .subscribe((data) => {
+        this.cars = data.data
+        this.pages = []
+        this.total = data.total
+        this.countPage = Math.ceil(data.total / this.take)
+        for(let i = 1; i <= this.countPage; i++) {
+          this.pages.push(i)
+        }
+      })
   }
 
 
@@ -152,21 +190,13 @@ export class CarsComponent implements OnInit {
     this.getCars()
   }
 
-  getCars() {
-    this.httpService.get(`cars?skip=${this.skip}&take=${this.take}`).subscribe((data) => {
-      this.cars = data.data
-      this.page = Math.floor(data.total / this.take)
-    })
-  }
-
-
-  updateCar() {
-    this.httpService.put({
-      path: 'cars/update', data: this.carForm.value
-    }).subscribe((data) => {
-      this.getCars()
-    })
-  }
+  // updateCar() {
+  //   this.httpService.put({
+  //     path: 'cars/update', data: this.carForm.value
+  //   }).subscribe((data) => {
+  //     this.getCars()
+  //   })
+  // }
 }
 
 
