@@ -1,12 +1,12 @@
 <p>calculator works!</p>
 
-<input>{{start}}
-<button type="button" (click)="sum()">Итого</button>
+<input [(ngModel)]="a">
+<input [(ngModel)]="b">
+<button type="button" (click)="sum(a,b)">Итого</button>
 <br>
-<select >
-  <option>+</option>
-  <option>-</option>
-  <option>*</option>
-  <option>/</option>
-</select>
-<input>{{value}}
+<button (click)="symbol='+'">+</button>
+<button (click)="symbol='-'">-</button>
+<button (click)="symbol='*'">*</button>
+<button (click)="symbol='/'">/</button>
+
+<input [(ngModel)]="result">

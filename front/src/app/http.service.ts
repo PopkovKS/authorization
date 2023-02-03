@@ -7,7 +7,6 @@ import { environment } from '../environments/environment';
 interface IPostOptions{
   path: string;
   data: any;
-
 }
 // const baseUrl = environment.BASE_URL_API
 

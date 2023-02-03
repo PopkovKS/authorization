@@ -3,16 +3,35 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { HttpService } from "../../http.service";
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
+interface ICar {
+  id: number;
+  brand: string;
+  model: string;
+  color: string;
+  mileage: number;
+  selected?: boolean;
+}
+
 @Component({
   selector: 'app-cars',
   templateUrl: './cars.component.html',
   styleUrls: ['./cars.component.scss']
 })
 export class CarsComponent implements OnInit {
+  skip: any = 0;
+  take: any = 2;
+
+  page: any;
+  // currentList:any = this.list /this.take ;
+  currentPage:any = 1;
+
+  selectedCars = [];
+  isCheckedAll = false;
   isVisible = false;
   isUpdate: boolean = false;
-  cars: any = [];
+  cars: ICar[] = [];
   editCarId: number = 0;
+  ids: any;
   brands = [
     'subaru', 'bmw', 'opel', 'honda'
   ]
@@ -29,39 +48,54 @@ export class CarsComponent implements OnInit {
   ) {
   }
 
-  ngOnInit() {
-    this.getCars()
-  }
-
-  getCars() {
-    this.httpService.get('cars').subscribe((data) => {
-      this.cars = data
-    })
-  }
-
-  delCar(id: number) {
+  public delCar(id: number) {
     this.httpService.delete(`cars/delete/${id}`).subscribe((data) => {
-      this.notification.success('Car successfully delete','')
+      this.notification.success('Car successfully delete', '')
       this.getCars()
     })
   }
 
-  updateCar() {
-    this.httpService.put({
-      path: 'cars/update', data: this.carForm.value
-    }).subscribe((data) => {
+  public selectCar(id: any) {
+    const car = this.cars.find((car) => id == car.id)
+    if (car) {
+      car.selected = !car.selected
+    }
+
+  }
+
+  public deleteSelected() {
+    const ids: any = [];
+    this.cars.forEach((car: ICar) => {
+      if (car.selected) {
+        ids.push(car.id)
+      }
+    })
+    this.httpService.delete(`cars/delete?ids=${JSON.stringify(ids)}`).subscribe((data) => {
+      this.notification.success(`${data.count} Cars successfully delete`, '')
       this.getCars()
     })
+
+  }
+
+  public selectAll() {
+    this.isCheckedAll = !this.isCheckedAll
+    this.cars = this.cars.map((car) => {
+      return {...car, selected: this.isCheckedAll}
+    })
+
+  }
+
+  public isSelected(): boolean {
+    return !!this.cars.find((car: any) => car.selected)
   }
 
 
-  showModal(): void {
+  public showModal(): void {
     this.isUpdate = false;
     this.isVisible = true;
   }
 
-  showModalUpdate(car: { id: number, brand: string, model: string, color: string, mileage: number }) {
-    console.log(car)
+  public showModalUpdate(car: ICar) {
     this.editCarId = car.id;
     this.isUpdate = true;
     this.isVisible = true;
@@ -73,7 +107,7 @@ export class CarsComponent implements OnInit {
     })
   }
 
-  handleCreate() {
+  public handleCreate() {
     this.httpService.post({
       path: 'cars/create', data: this.carForm.value
     }).subscribe((data) => {
@@ -85,19 +119,58 @@ export class CarsComponent implements OnInit {
     console.log('Button ok clicked!');
   }
 
-  handleUpdate() {
+  public handleUpdate() {
     this.httpService.put({
       path: `cars/update/${this.editCarId}`, data: this.carForm.value
     }).subscribe(() => {
       this.carForm.reset({brand: ''})
       this.isVisible = false;
-      this.notification.success('Car successfully updated','')
+      this.notification.success('Car successfully updated', '')
       this.getCars()
     })
   }
 
-  handleCancel(): void {
+  public handleCancel(): void {
     console.log('Button cancel clicked!');
     this.isVisible = false;
   }
+
+  public backStepList() {
+    this.currentPage -= 1
+    this.skip = this.skip - this.take
+    this.getCars()
+  }
+
+  public nextStepList() {
+    this.currentPage += 1
+    this.skip = this.skip + this.take
+    this.getCars()
+  }
+
+
+  ngOnInit() {
+    this.getCars()
+  }
+
+  getCars() {
+    this.httpService.get(`cars?skip=${this.skip}&take=${this.take}`).subscribe((data) => {
+      this.cars = data.data
+      this.page = Math.floor(data.total / this.take)
+    })
+  }
+
+
+  updateCar() {
+    this.httpService.put({
+      path: 'cars/update', data: this.carForm.value
+    }).subscribe((data) => {
+      this.getCars()
+    })
+  }
 }
+
+
+
+
+
+

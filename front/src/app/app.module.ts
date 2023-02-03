@@ -45,7 +45,21 @@ registerLocaleData(ru);
     NzInputModule,
     NzSpinModule,
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }, HttpService, { provide: NZ_I18N, useValue: ru_RU }, NzNotificationService],
+  providers: [
+    {
+      provide:
+      HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    },
+    HttpService,
+    {
+      provide: NZ_I18N,
+      useValue: ru_RU
+    },
+    NzNotificationService
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

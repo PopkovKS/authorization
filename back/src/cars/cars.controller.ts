@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, Request, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from "../auth/jwt-auth.guard";
 import { CarsService } from "./cars.service";
 
@@ -9,9 +9,13 @@ export class CarsController {
 
     @UseGuards(JwtAuthGuard)
     @Get('')
-    getCars(@Request() req) {
-        return this.carsService.getCars(req.user.id)
+    getCars(
+        @Request() req,
+        @Query('skip') skip: string, @Query('take') take: string
+    ) {
+        return this.carsService.getCars(req.user.id, {skip: Number(skip), take: Number(take)})
     }
+
 
     @UseGuards(JwtAuthGuard)
     @Post('create')
@@ -27,6 +31,14 @@ export class CarsController {
     delCar(@Param('id') id) {
         return this.carsService.delCar(+id)
     }
+
+    @UseGuards(JwtAuthGuard)
+    @Delete('delete')
+    delCars(@Query() query) {
+        const ids = JSON.parse(query.ids)
+        return this.carsService.delCars(ids)
+    }
+
 
     @UseGuards(JwtAuthGuard)
     @Put('update/:id')

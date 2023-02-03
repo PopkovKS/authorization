@@ -7,11 +7,31 @@ import { Component } from '@angular/core';
 })
 export class CalculatorComponent {
 
-  start: any;
-  value: any;
+  a: any;
+  b: any;
 
-  sum() {
-   this.start
+
+  result: any;
+  symbol:any
+
+  sum(a: any, b: any) {
+
+    switch (this.symbol) {
+      case '+':
+        this.result = +this.a + +this.b
+        console.log(this.result)
+        break
+      case '-':
+        this.result = this.a - this.b
+        break
+      case '*':
+        this.result = this.a * this.b
+        break
+      case '/':
+        this.result = this.a / this.b
+        break
+
+    }
+    this.result.setValue()
   }
-
 }

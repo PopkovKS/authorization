@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { CalculatorRoutingModule } from './calculator-routing.module';
 import { CalculatorComponent } from './calculator.component';
+import { FormsModule } from "@angular/forms";
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { CalculatorComponent } from './calculator.component';
   ],
   imports: [
     CommonModule,
-    CalculatorRoutingModule
+    CalculatorRoutingModule,
+    FormsModule
   ]
 })
 export class CalculatorModule { }

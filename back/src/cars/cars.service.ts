@@ -6,13 +6,43 @@ export class CarsService {
     constructor(private readonly prisma: PrismaService) {
     }
 
-    getCars(userId) {
-        return this.prisma.cars.findMany({
-            where: {
-                userId: userId
-            }
-        })
+
+   async getCars(userId, params: {
+        skip?: number;
+        take?: number;
+    }) {
+        const {skip, take} = params;
+       const [data, total] = await this.prisma.$transaction([
+           this.prisma.cars.findMany({
+               skip,
+               take,
+               where: {
+                   userId
+               },
+           }),
+            this.prisma.cars.count({
+                where: {
+                    userId
+                }
+            }),
+        ])
+       return {data, total}
+
+        //    const data = await this.prisma.cars.findMany({
+        //         skip,
+        //         take,
+        //         where: {
+        //             userId
+        //         },
+        //     })
+        //    const total = await this.prisma.cars.count({
+        //         where: {
+        //             userId
+        //         }
+        //     })
+        // return {data, total}
     }
+
 
     createCar(car, user) {
         return this.prisma.cars.create({
@@ -31,12 +61,22 @@ export class CarsService {
         })
     }
 
+    delCars(ids) {
+        return this.prisma.cars.deleteMany({
+            where: {
+                id: {
+                    in: ids
+                }
+            }
+        })
+    }
+
     updateCar(car, id) {
         return this.prisma.cars.update({
             where: {
                 id
             },
-            data : car
+            data: car
         })
 
     }

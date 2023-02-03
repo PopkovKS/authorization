@@ -4,7 +4,7 @@
   <span>Create car</span>
 </button>
 
-<nz-table #basicTable [nzData]="cars">
+<nz-table #basicTable [nzData]="cars" [nzFrontPagination]="false">
   <thead>
   <tr>
     <th>id</th>
@@ -13,6 +13,14 @@
     <th>color</th>
     <th>mileage</th>
     <th>actions</th>
+    <th>
+      <button nz-button [nzType]="'primary'" (click)="selectAll()" [nzSize]="'small'">
+        Select all
+      </button>
+      <button *ngIf="isSelected()" (click)="deleteSelected()">
+        delete selected
+      </button>
+    </th>
   </tr>
   </thead>
   <tbody>
@@ -35,9 +43,16 @@
         Delete
       </a>
     </td>
+    <td>
+      <input type="checkbox" [checked]="car.selected" (change)="selectCar(car.id)">
+    </td>
   </tr>
   </tbody>
+    <button (click)="backStepList()" [disabled]="this.skip == 0" ><< Назад </button>
+    {{currentPage}}
+    <button (click)="nextStepList()" [disabled]="this.skip == 10"> Вперед >></button>
 </nz-table>
+
 
 <nz-modal
   nzWidth="250px"

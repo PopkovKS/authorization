@@ -11,6 +11,8 @@ import { NzTableModule } from "ng-zorro-antd/table";
 import { NzSelectModule } from "ng-zorro-antd/select";
 import { NzInputModule } from "ng-zorro-antd/input";
 import { NzPopconfirmModule } from "ng-zorro-antd/popconfirm";
+import { NzCheckboxModule } from "ng-zorro-antd/checkbox";
+import { NzPaginationModule } from "ng-zorro-antd/pagination";
 
 
 @NgModule({
@@ -28,7 +30,9 @@ import { NzPopconfirmModule } from "ng-zorro-antd/popconfirm";
         NzTableModule,
         NzSelectModule,
         NzInputModule,
-        NzPopconfirmModule
+        NzPopconfirmModule,
+        NzCheckboxModule,
+        NzPaginationModule
     ]
 })
 export class CarsModule { }
