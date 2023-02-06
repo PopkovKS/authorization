@@ -3,6 +3,10 @@
         (click)="showModal()">
   <span>Create car</span>
 </button>
+<select [(ngModel)]="sort" (change)="getCars()">
+  <option value="">sort</option>
+  <option value="DESK">brand</option>
+</select>
 
 <nz-table #basicTable [nzData]="cars" [nzFrontPagination]="false">
   <thead>
@@ -14,12 +18,14 @@
     <th>mileage</th>
     <th>actions</th>
     <th>
-      <button nz-button [nzType]="'primary'" (click)="selectAll()" [nzSize]="'small'">
-        Select all
-      </button>
-      <button *ngIf="isSelected()" (click)="deleteSelected()">
-        delete selected
-      </button>
+      <div *ngIf="total !== 0">
+        <button nz-button [nzType]="'primary'" (click)="selectAll()" [nzSize]="'small'">
+          Select all
+        </button>
+        <button *ngIf="isSelected()" (click)="deleteSelected()">
+          delete selected
+        </button>
+        </div>
     </th>
   </tr>
   </thead>
@@ -48,11 +54,19 @@
     </td>
   </tr>
   </tbody>
-  <button (click)="backStepStart()" [disabled]="currentPage == 1">[<<] </button>
-  <button (click)="backStepPage()" [disabled]="currentPage == 1">[<] </button>
-  <button *ngFor="let page of pages" (click)="changePage(page)" [class.disable-page]="currentPage == page" [disabled]="currentPage == page">{{page}}</button>
-  <button (click)="nextStepPage()" [disabled]="currentPage == this.countPage"> [>]</button>
-  <button (click)="nextStepEnd()" [disabled]="currentPage == this.countPage"> [>>]</button>
+  <div *ngIf="total !== 0">
+    <button (click)="backStepStart()" [disabled]="currentPage == 1">[<<]</button>
+    <button (click)="backStepPage()" [disabled]="currentPage == 1">[<]</button>
+    <button *ngFor="let page of pages"
+            (click)="changePage(page)"
+            [class.disable-page]="currentPage == page"
+            [disabled]="currentPage == page"
+    >
+      {{page}}
+    </button>
+    <button (click)="nextStepPage()" [disabled]="currentPage == this.countPage"> [>]</button>
+    <button (click)="nextStepEnd()" [disabled]="currentPage == this.countPage"> [>>]</button>
+  </div>
 </nz-table>
 
 

@@ -18,6 +18,7 @@ interface ICar {
   styleUrls: ['./cars.component.scss']
 })
 export class CarsComponent implements OnInit {
+  sort: any;
   skip: any = 0;
   take: any = 10;
 
@@ -26,6 +27,7 @@ export class CarsComponent implements OnInit {
   currentPage: number = 1;
   pages:any;
   total:number = 0;
+  oldTotal:number = 0;
 
   selectedCars = [];
   isCheckedAll = false;
@@ -50,12 +52,18 @@ export class CarsComponent implements OnInit {
   ) {
   }
 
+  ngOnInit() {
+    this.getCars()
+  }
+
   public delCar(id: number) {
 
     this.httpService.delete(`cars/delete/${id}`).subscribe((data) => {
       this.notification.success('Car successfully delete', '')
-      if(this.take * this.countPage > this.total) {
+
+      if((this.total - 1) % this.take === 0 && this.total != 1) {
         this.skip = this.skip - this.take
+        this.currentPage--
       }
       this.getCars()
     })
@@ -78,6 +86,10 @@ export class CarsComponent implements OnInit {
     })
     this.httpService.delete(`cars/delete?ids=${JSON.stringify(ids)}`).subscribe((data) => {
       this.notification.success(`${data.count} Cars successfully delete`, '')
+      if((this.total - ids.length) % this.take === 0 && this.total != ids.length) {
+        this.skip = this.skip - this.take
+        this.currentPage--
+      }
       this.getCars()
     })
 
@@ -120,6 +132,10 @@ export class CarsComponent implements OnInit {
       this.isVisible = false;
       this.notification.create('success', 'Car successfully created', '')
       this.carForm.reset({brand: ''})
+      if(this.total % this.take === 0 && this.total != 0) {
+        this.currentPage++
+        this.skip = this.skip + this.take
+      }
       this.getCars()
     })
     console.log('Button ok clicked!');
@@ -153,7 +169,7 @@ export class CarsComponent implements OnInit {
     this.getCars()
   }
 
-  public changePage(page:number) {
+  public changePage(page: number) {
     this.currentPage = page
     this.skip = this.currentPage*this.take - this.take
     this.getCars()
@@ -161,7 +177,7 @@ export class CarsComponent implements OnInit {
 
   public nextStepEnd(){
     this.currentPage = this.countPage
-    this.skip = this.countPage*this.take - this.take
+    this.skip = this.countPage * this.take - this.take
     this.getCars()
   }
 
@@ -172,8 +188,12 @@ export class CarsComponent implements OnInit {
   }
 
 
-  private getCars() {
-    this.httpService.get(`cars?skip=${this.skip}&take=${this.take}`)
+  public getCars() {
+    let url = `cars?skip=${this.skip}&take=${this.take}`
+    // if (this.sort) {
+    //   url += `&orderBy= ${this.sort}`
+    // }
+    this.httpService.get(url)
       .subscribe((data) => {
         this.cars = data.data
         this.pages = []
@@ -185,18 +205,6 @@ export class CarsComponent implements OnInit {
       })
   }
 
-
-  ngOnInit() {
-    this.getCars()
-  }
-
-  // updateCar() {
-  //   this.httpService.put({
-  //     path: 'cars/update', data: this.carForm.value
-  //   }).subscribe((data) => {
-  //     this.getCars()
-  //   })
-  // }
 }
 
 

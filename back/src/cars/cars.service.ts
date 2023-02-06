@@ -7,26 +7,30 @@ export class CarsService {
     }
 
 
-   async getCars(userId, params: {
+    async getCars(userId, params: {
         skip?: number;
         take?: number;
+        orderBy?: string;
     }) {
-        const {skip, take} = params;
-       const [data, total] = await this.prisma.$transaction([
-           this.prisma.cars.findMany({
-               skip,
-               take,
-               where: {
-                   userId
-               },
-           }),
+        const {skip, take, orderBy} = params;
+        const [data, total] = await this.prisma.$transaction([
+            this.prisma.cars.findMany({
+                skip,
+                take,
+                // orderBy: {
+                //     brand: orderBy
+                // },
+                where: {
+                    userId
+                },
+            }),
             this.prisma.cars.count({
                 where: {
                     userId
                 }
             }),
         ])
-       return {data, total}
+        return {data, total}
 
         //    const data = await this.prisma.cars.findMany({
         //         skip,

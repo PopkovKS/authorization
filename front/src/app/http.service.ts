@@ -1,23 +1,25 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError, Observable, of, throwError } from "rxjs";
 import { NzNotificationService } from "ng-zorro-antd/notification";
 import { environment } from '../environments/environment';
 
-interface IPostOptions{
+interface IPostOptions {
   path: string;
   data: any;
 }
+
 // const baseUrl = environment.BASE_URL_API
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpService {
-  qwe:any;
+  qwe: any;
 
   constructor(private http: HttpClient,
-  private notification: NzNotificationService) { }
+              private notification: NzNotificationService) {
+  }
 
   // apiUrl = baseUrl
   apiUrl = 'http://localhost:3000/api'
@@ -25,7 +27,7 @@ export class HttpService {
 
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type':  'application/json',
+      'Content-Type': 'application/json',
     })
   };
 
@@ -42,12 +44,14 @@ export class HttpService {
         catchError(this.handleError())
       );
   }
+
   delete(path: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${path}`, this.httpOptions)
       .pipe(
         catchError(this.handleError())
       );
   }
+
   put(options: IPostOptions): Observable<any> {
     return this.http.put(`${this.apiUrl}/${options.path}`, options.data, this.httpOptions)
       .pipe(
@@ -56,10 +60,10 @@ export class HttpService {
   }
 
 
-
   private handleError<TResult>(): (error: any) => Observable<TResult> {
-      return (error) => {
-            this.notification.error('Ops:(', `Ошибка: ${error.status}`)
+    return (error) => {
+      this.notification.error('Ops:(', `Ошибка: ${error}`)
+      console.log(error)
       return of();
     };
   }

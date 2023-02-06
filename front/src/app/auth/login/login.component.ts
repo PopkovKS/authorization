@@ -24,6 +24,7 @@ export class LoginComponent {
     this.httpService.post({
       path: 'auth/login', data: this.loginForm.value
     }).subscribe((resp: any) => {
+      console.log(resp, 123)
       localStorage.setItem('access_token', resp.access_token);
       this.isSpinning = false;
       this.router.navigate(['dashboard']);

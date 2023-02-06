@@ -10,10 +10,12 @@ export class CarsController {
     @UseGuards(JwtAuthGuard)
     @Get('')
     getCars(
-        @Request() req,
-        @Query('skip') skip: string, @Query('take') take: string
+        @Request() req?,
+        @Query('skip') skip?: string,
+        @Query('take') take?: string,
+        @Query('orderBy') orderBy?: string
     ) {
-        return this.carsService.getCars(req.user.id, {skip: Number(skip), take: Number(take)})
+        return this.carsService.getCars(req.user.id, {skip: Number(skip), take: Number(take), orderBy})
     }
 
 
