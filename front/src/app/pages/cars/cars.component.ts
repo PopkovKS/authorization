@@ -138,7 +138,6 @@ export class CarsComponent implements OnInit {
       }
       this.getCars()
     })
-    console.log('Button ok clicked!');
   }
 
   public handleUpdate() {
@@ -153,7 +152,6 @@ export class CarsComponent implements OnInit {
   }
 
   public handleCancel(): void {
-    console.log('Button cancel clicked!');
     this.isVisible = false;
   }
 
@@ -175,7 +173,7 @@ export class CarsComponent implements OnInit {
     this.getCars()
   }
 
-  public nextStepEnd(){
+  public nextStepEnd() {
     this.currentPage = this.countPage
     this.skip = this.countPage * this.take - this.take
     this.getCars()
@@ -194,11 +192,11 @@ export class CarsComponent implements OnInit {
     //   url += `&orderBy= ${this.sort}`
     // }
     this.httpService.get(url)
-      .subscribe((data) => {
-        this.cars = data.data
+      .subscribe((cars) => {
+        this.cars = cars.data
         this.pages = []
-        this.total = data.total
-        this.countPage = Math.ceil(data.total / this.take)
+        this.total = cars.total
+        this.countPage = Math.ceil(cars.total / this.take)
         for(let i = 1; i <= this.countPage; i++) {
           this.pages.push(i)
         }
@@ -206,9 +204,3 @@ export class CarsComponent implements OnInit {
   }
 
 }
-
-
-
-
-
-
