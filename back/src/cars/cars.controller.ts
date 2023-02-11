@@ -10,22 +10,20 @@ export class CarsController {
     @UseGuards(JwtAuthGuard)
     @Get('')
     getCars(
-        @Request() req?,
-        @Query('skip') skip?: string,
-        @Query('take') take?: string,
-        @Query('orderBy') orderBy?: string
+        @Request() req,
+        // @Query() query?: any
     ) {
-        return this.carsService.getCars(req.user.id, {skip: Number(skip), take: Number(take), orderBy})
+        return this.carsService.getCars(req.user.id, req.query)
     }
 
 
     @UseGuards(JwtAuthGuard)
     @Post('create')
     createCar(
-        @Body() body,
-        @Request() req
+        @Request() req,
+        // @Body() body
     ) {
-        return this.carsService.createCar(body, req.user)
+        return this.carsService.createCar(req.user, req.body)
     }
 
     @UseGuards(JwtAuthGuard)

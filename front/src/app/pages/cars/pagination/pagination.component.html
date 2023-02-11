@@ -1,0 +1,13 @@
+<div *ngIf="total !== 0">
+  <button (click)="backStepStart()" [disabled]="currentPage == 1">[<<]</button>
+  <button (click)="backStepPage()" [disabled]="currentPage == 1">[<]</button>
+  <button *ngFor="let page of pages"
+          (click)="changePage(page)"
+          [class.disable-page]="currentPage == page"
+          [disabled]="currentPage == page"
+  >
+    {{page}}
+  </button>
+  <button (click)="nextStepPage()" [disabled]="currentPage == this.countPage"> [>]</button>
+  <button (click)="nextStepEnd()" [disabled]="currentPage == this.countPage"> [>>]</button>
+</div>

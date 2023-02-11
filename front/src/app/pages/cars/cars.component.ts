@@ -18,22 +18,23 @@ interface ICar {
   styleUrls: ['./cars.component.scss']
 })
 export class CarsComponent implements OnInit {
-  sort: any;
-  skip: any = 0;
-  take: any = 10;
 
-  countPage: any;
-  // currentList:any = this.list /this.take ;
-  currentPage: number = 1;
-  pages:any;
-  total:number = 0;
-  oldTotal:number = 0;
+  sort: any;
+  filterByBrand: any = '';
+  filters:any = {}
+
+  total: number = 0;
+  skip: any = 0;
+  take: any = 2;
+  currentPage: any = 1;
 
   selectedCars = [];
   isCheckedAll = false;
   isVisible = false;
   isUpdate: boolean = false;
+
   cars: ICar[] = [];
+
   editCarId: number = 0;
   ids: any;
   brands = [
@@ -53,6 +54,10 @@ export class CarsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.init()
+  }
+
+  init() {
     this.getCars()
   }
 
@@ -61,7 +66,7 @@ export class CarsComponent implements OnInit {
     this.httpService.delete(`cars/delete/${id}`).subscribe((data) => {
       this.notification.success('Car successfully delete', '')
 
-      if((this.total - 1) % this.take === 0 && this.total != 1) {
+      if ((this.total - 1) % this.take === 0 && this.total != 1) {
         this.skip = this.skip - this.take
         this.currentPage--
       }
@@ -86,7 +91,7 @@ export class CarsComponent implements OnInit {
     })
     this.httpService.delete(`cars/delete?ids=${JSON.stringify(ids)}`).subscribe((data) => {
       this.notification.success(`${data.count} Cars successfully delete`, '')
-      if((this.total - ids.length) % this.take === 0 && this.total != ids.length) {
+      if ((this.total - ids.length) % this.take === 0 && this.total != ids.length) {
         this.skip = this.skip - this.take
         this.currentPage--
       }
@@ -132,7 +137,7 @@ export class CarsComponent implements OnInit {
       this.isVisible = false;
       this.notification.create('success', 'Car successfully created', '')
       this.carForm.reset({brand: ''})
-      if(this.total % this.take === 0 && this.total != 0) {
+      if (this.total % this.take === 0 && this.total != 0) {
         this.currentPage++
         this.skip = this.skip + this.take
       }
@@ -155,51 +160,43 @@ export class CarsComponent implements OnInit {
     this.isVisible = false;
   }
 
-  public backStepPage() {
-    this.currentPage -= 1
-    this.skip = this.skip - this.take
-    this.getCars()
+
+  public filterBrand() {
+    if (this.filterByBrand) {
+      this.filters.brand = this.filterByBrand
+      this.skip = 0
+      this.getCars()
+    }
   }
 
-  public nextStepPage() {
-    this.currentPage += 1
-    this.skip = this.skip + this.take
-    this.getCars()
-  }
-
-  public changePage(page: number) {
-    this.currentPage = page
-    this.skip = this.currentPage*this.take - this.take
-    this.getCars()
-  }
-
-  public nextStepEnd() {
-    this.currentPage = this.countPage
-    this.skip = this.countPage * this.take - this.take
-    this.getCars()
-  }
-
-  public backStepStart(){
-    this.currentPage = 1
+  public clearFilters() {
     this.skip = 0
+    this.filters = {}
+    this.filterByBrand = ''
     this.getCars()
   }
 
+  public changePage(currentPage: any) {
+    this.currentPage = currentPage
+    this.skip = currentPage * this.take - this.take
+    this.getCars()
+  }
 
   public getCars() {
     let url = `cars?skip=${this.skip}&take=${this.take}`
+
+    for (let filterKey in this.filters) {
+      if(this.filters.hasOwnProperty(filterKey)) {
+        url += `&${filterKey}=${this.filters[filterKey]}`
+      }
+    }
     // if (this.sort) {
-    //   url += `&orderBy= ${this.sort}`
+    //   url += `&orderBy= ${this.sort}`a
     // }
     this.httpService.get(url)
       .subscribe((cars) => {
         this.cars = cars.data
-        this.pages = []
         this.total = cars.total
-        this.countPage = Math.ceil(cars.total / this.take)
-        for(let i = 1; i <= this.countPage; i++) {
-          this.pages.push(i)
-        }
       })
   }
 

@@ -13,11 +13,13 @@ import { NzInputModule } from "ng-zorro-antd/input";
 import { NzPopconfirmModule } from "ng-zorro-antd/popconfirm";
 import { NzCheckboxModule } from "ng-zorro-antd/checkbox";
 import { NzPaginationModule } from "ng-zorro-antd/pagination";
+import { PaginationComponent } from './pagination/pagination.component';
 
 
 @NgModule({
   declarations: [
-    CarsComponent
+    CarsComponent,
+    PaginationComponent
   ],
     imports: [
         CommonModule,

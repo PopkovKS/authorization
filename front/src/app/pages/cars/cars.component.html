@@ -7,6 +7,11 @@
   <option value="">sort</option>
   <option value="DESK">brand</option>
 </select>
+<select [(ngModel)]="filterByBrand" (change)="filterBrand()">
+  <option value="" disabled selected hidden>Filter by brand</option>
+  <option *ngFor="let brand of brands">{{brand}}</option>
+</select>
+<button (click)="clearFilters()">Clear filters</button>
 
 <nz-table #basicTable [nzData]="cars" [nzFrontPagination]="false">
   <thead>
@@ -25,7 +30,7 @@
         <button *ngIf="isSelected()" (click)="deleteSelected()">
           delete selected
         </button>
-        </div>
+      </div>
     </th>
   </tr>
   </thead>
@@ -54,19 +59,13 @@
     </td>
   </tr>
   </tbody>
-  <div *ngIf="total !== 0">
-    <button (click)="backStepStart()" [disabled]="currentPage == 1">[<<]</button>
-    <button (click)="backStepPage()" [disabled]="currentPage == 1">[<]</button>
-    <button *ngFor="let page of pages"
-            (click)="changePage(page)"
-            [class.disable-page]="currentPage == page"
-            [disabled]="currentPage == page"
-    >
-      {{page}}
-    </button>
-    <button (click)="nextStepPage()" [disabled]="currentPage == this.countPage"> [>]</button>
-    <button (click)="nextStepEnd()" [disabled]="currentPage == this.countPage"> [>>]</button>
-  </div>
+  <app-pagination
+    [currentPage]="currentPage"
+    [total]="total"
+    [itemPerPage]="take"
+    (onPagination)="changePage($event)"
+  >
+  </app-pagination>
 </nz-table>
 
 
