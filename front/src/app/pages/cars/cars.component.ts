@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { HttpService } from "../../http.service";
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { ActivatedRoute, Router } from "@angular/router";
 
 interface ICar {
   id: number;
@@ -49,7 +50,9 @@ export class CarsComponent implements OnInit {
 
   constructor(
     private httpService: HttpService,
-    private notification: NzNotificationService
+    private notification: NzNotificationService,
+    private _route: ActivatedRoute,
+    private _router: Router
   ) {
   }
 
@@ -58,6 +61,15 @@ export class CarsComponent implements OnInit {
   }
 
   init() {
+
+    this._route.queryParams
+      .subscribe(params => {
+          if (params['brand']) {
+            this.filterByBrand = params['brand']
+          }
+        }
+      );
+
     this.getCars()
   }
 
@@ -163,6 +175,29 @@ export class CarsComponent implements OnInit {
 
   public filterBrand() {
     if (this.filterByBrand) {
+
+      this._router.navigate(
+        [],
+        {
+          relativeTo: this._route,
+          queryParams: {
+                brand: this.filterByBrand
+              },
+          queryParamsHandling: 'merge', // remove to replace all query params by provided
+        });
+
+      // this._router.navigate([], {
+      //   relativeTo: this._route,
+      //   queryParams: {
+      //     brand: this.filterByBrand
+      //   },
+      //   queryParamsHandling: 'merge',
+      //   // preserve the existing query params in the route
+      //   skipLocationChange: true
+      //   // do not trigger navigation
+      // });
+
+
       this.filters.brand = this.filterByBrand
       this.skip = 0
       this.getCars()
