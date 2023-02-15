@@ -25,8 +25,8 @@ export class CarsComponent implements OnInit {
   filters:any = {}
 
   total: number = 0;
-  skip: any = 0;
-  take: any = 2;
+  skip: number = 0;
+  take: number = 2;
   currentPage: any = 1;
 
   selectedCars = [];

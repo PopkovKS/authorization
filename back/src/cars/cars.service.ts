@@ -16,8 +16,8 @@ export class CarsService {
         const {skip, take, brand, orderBy} = params;
         const [data, total] = await this.prisma.$transaction([
             this.prisma.cars.findMany({
-                skip,
-                take,
+                skip: +skip,
+                take: +take,
                 // orderBy: {
                 //     brand: orderBy
                 // },

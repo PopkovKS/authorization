@@ -30,7 +30,7 @@ describe('CarsController', () => {
       console.log(result)
       return result
     });
-    expect( await carsController.getCars({user:{id:1}},'0','1')).toEqual(result);
+    expect( await carsController.getCars({user:{id:1}})).toEqual(result);
   });
 
 });
