@@ -121,7 +121,7 @@ export class CarsComponent implements OnInit {
   }
 
   public isSelected(): boolean {
-    return !!this.cars.find((car: any) => car.selected)
+    return !!this.cars?.find((car: any) => car.selected)
   }
 
 

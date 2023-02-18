@@ -1,14 +1,21 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, Request, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from "../auth/jwt-auth.guard";
 import { CarsService } from "./cars.service";
+import { ApiOperation, ApiResponse } from "@nestjs/swagger";
+import { Cars } from "./dto/create-cars.dto";
 
 @Controller('cars')
 export class CarsController {
     constructor(private carsService: CarsService) {
     }
 
+    @ApiOperation({summary: 'Получение всех машин'})
+    @ApiResponse({status: 200, type: Cars})
     @UseGuards(JwtAuthGuard)
     @Get('')
+    // findAll() {
+    //     return this.carsService.All();
+    // }
     getCars(
         @Request() req,
         // @Query() query?: any

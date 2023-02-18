@@ -4,20 +4,30 @@ import {
     Controller,
     Post,
 } from '@nestjs/common';
-import { hash } from 'bcrypt';
+import * as bcrypt from 'bcrypt';
 import { PrismaService } from "nestjs-prisma";
 import {Prisma} from "@prisma/client";
+import { ApiOperation, ApiResponse } from "@nestjs/swagger";
 
 
 @Controller()
 export class AppController {
     constructor(private readonly prisma: PrismaService) {
     }
-
+    @ApiOperation({summary: 'Создание пользователя'})
+    @ApiResponse({status: 200})
     @Post('/registration')
     async registration(@Body() body) {
         try {
-            const hashedPassword = await hash(body.password, 10)
+
+            // const saltRounds = 10
+            //
+            // bcrypt.genSalt(saltRounds, function(err, salt) {
+            //
+            // });
+
+
+            const hashedPassword = await bcrypt.hash(body.password, 10)
 
             const result = await this.prisma.users.create({
                 data: {

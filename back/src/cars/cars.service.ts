@@ -23,17 +23,21 @@ export class CarsService {
                 // },
                 where: {
                     userId,
-                    brand
+                    brand,
+                    published: true
                 },
             }),
             this.prisma.cars.count({
                 where: {
                     userId,
-                    brand
+                    brand,
+                    published: true
                 }
             }),
         ])
         return {data, total}
+
+
 
         //    const data = await this.prisma.cars.findMany({
         //         skip,
@@ -50,8 +54,15 @@ export class CarsService {
         // return {data, total}
     }
 
+    // All() {
+    //     return this.prisma.cars.findMany({
+    //         where: {
+    //             published: true
+    //         }
+    //     });
+    // }
 
-    createCar(car, user) {
+    createCar(user, car) {
         return this.prisma.cars.create({
             data: {
                 ...car,
