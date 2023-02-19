@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 
 interface ICar {
   id: number;
+  image: string;
   brand: string;
   model: string;
   color: string;
@@ -42,6 +43,7 @@ export class CarsComponent implements OnInit {
     'subaru', 'bmw', 'opel', 'honda'
   ]
   carForm = new FormGroup({
+    image: new FormControl('', Validators.required),
     brand: new FormControl('', Validators.required),
     model: new FormControl('', Validators.required),
     color: new FormControl('', Validators.required),
@@ -181,8 +183,8 @@ export class CarsComponent implements OnInit {
         {
           relativeTo: this._route,
           queryParams: {
-                brand: this.filterByBrand
-              },
+            brand: this.filterByBrand
+          },
           queryParamsHandling: 'merge', // remove to replace all query params by provided
         });
 

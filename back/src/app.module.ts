@@ -6,8 +6,8 @@ import { PrismaModule } from 'nestjs-prisma';
 import { loggingMiddleware } from "./common/middleware/logging.middleware";
 import { CarsController } from './cars/cars.controller';
 import { CarsService } from './cars/cars.service';
-import { TypeOrmModule } from "@nestjs/typeorm";
-import { Cars } from "./cars/cars.entity";
+import { ImgController } from './img/img.controller';
+import { ImgService } from "./img/img.service";
 
 
 
@@ -30,8 +30,8 @@ import { Cars } from "./cars/cars.entity";
   //   synchronize: true,
   // })
     ],
-  controllers: [AppController, CarsController],
-  providers: [CarsService],
+  controllers: [AppController, CarsController, ImgController],
+  providers: [CarsService, ImgService]
 })
 export class AppModule {
 }

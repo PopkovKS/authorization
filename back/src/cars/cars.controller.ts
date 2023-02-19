@@ -6,7 +6,8 @@ import { Cars } from "./dto/create-cars.dto";
 
 @Controller('cars')
 export class CarsController {
-    constructor(private carsService: CarsService) {
+    constructor(private carsService: CarsService,
+    ) {
     }
 
     @ApiOperation({summary: 'Получение всех машин'})

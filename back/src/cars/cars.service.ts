@@ -54,14 +54,6 @@ export class CarsService {
         // return {data, total}
     }
 
-    // All() {
-    //     return this.prisma.cars.findMany({
-    //         where: {
-    //             published: true
-    //         }
-    //     });
-    // }
-
     createCar(user, car) {
         return this.prisma.cars.create({
             data: {

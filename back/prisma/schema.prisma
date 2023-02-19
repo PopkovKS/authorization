@@ -1,8 +1,9 @@
 generator client {
   provider = "prisma-client-js"
 }
+
 generator prismaClassGenerator {
-    provider = "prisma-class-generator"
+  provider = "prisma-class-generator"
 }
 
 datasource db {
@@ -14,7 +15,7 @@ model Users {
   id       Int    @id @default(autoincrement())
   email    String @unique @db.VarChar(255)
   password String @db.VarChar(255)
-  cars    Cars[]
+  cars     Cars[]
 }
 
 model Cars {
@@ -26,4 +27,12 @@ model Cars {
   color     String  @db.VarChar(255)
   mileage   Int
   published Boolean @default(false)
+  image     Img?     @relation(fields: [imageId], references: [id])
+  imageId   Int?
+}
+
+model Img {
+  id    Int    @id @default(autoincrement())
+  image String @db.VarChar(255)
+  Cars  Cars[]
 }
