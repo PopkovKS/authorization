@@ -12,9 +12,11 @@ export class CarsService {
         take?: number;
         brand?: string;
         orderBy?: string;
+        imageId?: number;
     }) {
-        const {skip, take, brand, orderBy} = params;
+        const {skip, take, brand, imageId,  orderBy} = params;
         const [data, total] = await this.prisma.$transaction([
+
             this.prisma.cars.findMany({
                 skip: +skip,
                 take: +take,
@@ -23,15 +25,17 @@ export class CarsService {
                 // },
                 where: {
                     userId,
+                    // imageId,
                     brand,
-                    published: true
+                    // published: true
                 },
             }),
             this.prisma.cars.count({
                 where: {
                     userId,
+                    // imageId,
                     brand,
-                    published: true
+                    // published: true
                 }
             }),
         ])

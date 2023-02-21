@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 
 interface ICar {
   id: number;
-  image: string;
+  // image?: string;
   brand: string;
   model: string;
   color: string;
@@ -43,7 +43,7 @@ export class CarsComponent implements OnInit {
     'subaru', 'bmw', 'opel', 'honda'
   ]
   carForm = new FormGroup({
-    image: new FormControl('', Validators.required),
+    // image: new FormControl('', Validators.required),
     brand: new FormControl('', Validators.required),
     model: new FormControl('', Validators.required),
     color: new FormControl('', Validators.required),

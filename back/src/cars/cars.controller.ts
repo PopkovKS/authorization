@@ -14,9 +14,6 @@ export class CarsController {
     @ApiResponse({status: 200, type: Cars})
     @UseGuards(JwtAuthGuard)
     @Get('')
-    // findAll() {
-    //     return this.carsService.All();
-    // }
     getCars(
         @Request() req,
         // @Query() query?: any

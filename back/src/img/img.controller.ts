@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, Put, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from "../auth/jwt-auth.guard";
 import { ImgService } from "./img.service";
 import { Cars } from "../cars/dto/create-cars.dto";
@@ -14,12 +14,12 @@ export class ImgController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Post('')
+    @Put('')
     createImg(
         @Body()
-            car: Cars,
+            // car: Cars,
             image: Img
     ) {
-        return this.imgService.createImg(car.id, image)
+        return this.imgService.createImg(image.id, image)
     }
 }
